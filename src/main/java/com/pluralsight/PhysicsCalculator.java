@@ -23,7 +23,9 @@ public class PhysicsCalculator {
         String userOptionBackToMainMenu = "Main Menu";
 
         //A nice welcome message to the user.
-        out.println("Hello Young Einstein! Welcome to the physics calculator!\n");
+        out.println("\n======Hello Young Einstein!======");
+
+        out.println("Welcome to the physics calculator!\n");
 
         do {
         //Introduction to the program which displays the user options.
