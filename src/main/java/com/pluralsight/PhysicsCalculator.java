@@ -90,14 +90,14 @@ public class PhysicsCalculator {
 
     // Case 1 — Calculations
     static void handleCalculations() {
-        out.println("\nYou have selected: 1 for " + userOption1);
+        out.println("\nYou have selected: 1 for " + userOption1 + "\n");
         out.println("(Calculation features coming soon!)");
         pressEnterToContinue();
     }
 
     // Case 2 — Physics Equations
     static void handleEquations() {
-        out.println("\nYou have selected: 2 for " + userOption2);
+        out.println("\nYou have selected: 2 for " + userOption2 + "\n");
         out.println("""
                 1. Newton's laws of motion.
                 2. Einstein's theory of relativity.
@@ -147,7 +147,7 @@ public class PhysicsCalculator {
     }
 
     static void showEinsteinRelativity() {
-        out.println("\nYou have selected: Einstein's theory of relativity.");
+        out.println("\nYou have selected: Einstein's theory of relativity.\n");
         out.println("""
                             ***Einstein's Special Theory of Relativity***
            
@@ -159,7 +159,7 @@ public class PhysicsCalculator {
     }
 
     static void showSchrodingerEquation() {
-        out.println("\nYou have selected: Schrödinger's equation.");
+        out.println("\nYou have selected: Schrödinger's equation.\n");
         out.println("""
                             ***Schrödinger's Equation***
            
@@ -171,7 +171,7 @@ public class PhysicsCalculator {
     }
 
     static void showCoulombsLaw() {
-        out.println("\nYou have selected: Coulomb's law.");
+        out.println("\nYou have selected: Coulomb's law.\n");
         out.println("""
                             ***Coulomb's Law***
            
@@ -183,7 +183,7 @@ public class PhysicsCalculator {
     }
 
     static void showHeisenbergPrinciple() {
-        out.println("\nYou have selected: Heisenberg's uncertainty principle.");
+        out.println("\nYou have selected: Heisenberg's uncertainty principle.\n");
         out.println("""
                             ***Heisenberg's Uncertainty Principle***
            
@@ -195,7 +195,7 @@ public class PhysicsCalculator {
     }
 
     static void showMaxwellsEquations() {
-        out.println("\nYou have selected: Maxwell's equations.");
+        out.println("\nYou have selected: Maxwell's equations.\n");
         out.println("""
                             ***Maxwell's Equations***
            
@@ -209,7 +209,7 @@ public class PhysicsCalculator {
     }
 
     static void showStefanBoltzmann() {
-        out.println("\nYou have selected: Stefan-Boltzmann law.");
+        out.println("\nYou have selected: Stefan-Boltzmann law.\n");
         out.println("""
                             ***Stefan-Boltzmann Law***
            
@@ -258,7 +258,7 @@ public class PhysicsCalculator {
 
     // Case 4 — General Knowledge
     static void handleGeneralKnowledge() {
-        out.println("\nYou have selected: 4 for " + userOption4);
+        out.println("\nYou have selected: 4 for " + userOption4 + "\n");
         out.println("(General Knowledge features coming soon!)");
         pressEnterToContinue();
     }
@@ -266,6 +266,11 @@ public class PhysicsCalculator {
     // Case 5 — Exit
     static void handleExit() {
         out.println("\nYou have selected: 5 to " + userOptionToExit);
-        out.println("Goodbye!");
+        out.println("""
+                
+                               Please Come Again
+                ************** Goodbye for now! ****************
+                
+                """);
     }
 }
