@@ -3,34 +3,53 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.System.*;
 
-
-
 public class PhysicsCalculator {
-    public static void main(String[]args){
 
+    // Shared scanner used across all methods
+    static Scanner userInput = new Scanner(in);
 
-        //Declared my variables here at the top.
-        Scanner userInput = new Scanner(in);
-        int option = 0;
-        int constantChoice = 0;
+    // User option labels — easy to update in one place
+    static String userOption1            = "Calculations";
+    static String userOption2            = "Physics equations";
+    static String userOption3            = "Physics constants";
+    static String userOption4            = "General Knowledge";
+    static String userOptionToExit       = "Exit the program";
+    static String userOptionBackToMainMenu = "Main Menu";
+    static int option;
+    static int constantChoice;
+    static int choice;
 
-        //Declared my user options here to make it easy to change later if I have to update the options.
-        String userOption1 = "Calculations";
-        String userOption2 = "Physics equations";
-        String userOption3 = "Physics constants";
-        String userOption4 = "General Knowledge";
-        String userOptionToExit = "Exit the program";
-        String userOptionBackToMainMenu = "Main Menu";
+    public static void main(String[] args) {
 
-        //A nice welcome message to the user.
+        //int option;
+
         out.println("\n======Hello Young Einstein!======");
-
         out.println("Welcome to the physics calculator!\n");
 
+        // Outer loop — keeps the program running until the user selects Exit
         do {
-        //Introduction to the program which displays the user options.
+            option = 0; // reset so the prompt always shows on return
 
-        out.println("What would you like to calculate?");
+            displayMainMenu();
+            option = getValidatedInput(5);
+
+            switch (option) {
+                case 1 -> handleCalculations();
+                case 2 -> handleEquations();
+                case 3 -> handleConstants();
+                case 4 -> handleGeneralKnowledge();
+                case 5 -> handleExit();
+            }
+
+        } while (option != 5);
+
+        userInput.close();
+    }
+
+
+    // Menu display — keeps the main method clean and focused on flow control
+    static void displayMainMenu() {
+        out.println("What would you like to do?");
         out.println("""
                 1. Calculations.
                 2. Physics equations.
@@ -38,148 +57,215 @@ public class PhysicsCalculator {
                 4. General Knowledge.
                 5. Exit.
                 """);
+    }
 
-        // This do-while loop validates the user input for the main menu options.
+
+    // Reusable validated input — handles out-of-range and noninteger input
+    static int getValidatedInput(int max) {
+
+        choice = 0;
+
         do {
             out.print("Please enter your choice: ");
             try {
-                option = userInput.nextInt();  // if this throws, catch handles it
-                if (option < 1 || option > 5) {
-                    out.println("Invalid option. Please select a number between 1 and 5.");
+                choice = userInput.nextInt();
+                if (choice < 1 || choice > max) {
+                    out.println("Invalid option. Please select a number between " + 1 + " and " + max + ".");
                 }
             } catch (InputMismatchException e) {
                 out.println("Invalid input. Please enter a number.");
-                userInput.next(); // clear the bad token — don't comment this out!
+                userInput.next(); // clear the bad token
             }
-        } while (option < 1 || option > 5);
+        } while (choice < 1 || choice > max);
+        return choice;
+    }
 
+    // Eats the newline from the nextInt() call and lets the user read the intended data and gives them an option to Enter to continue
 
+    static void pressEnterToContinue() {
+        out.println("\nPress Enter to return to the main menu...");
+        userInput.nextLine(); // consume leftover newline from nextInt
+        userInput.nextLine(); // wait for user to press Enter
+    }
 
+    // Case 1 — Calculations
+    static void handleCalculations() {
+        out.println("\nYou have selected: 1 for " + userOption1);
+        out.println("(Calculation features coming soon!)");
+        pressEnterToContinue();
+    }
 
-        switch(option) {
-            case 1:
+    // Case 2 — Physics Equations
+    static void handleEquations() {
+        out.println("\nYou have selected: 2 for " + userOption2);
+        out.println("""
+                1. Newton's laws of motion.
+                2. Einstein's theory of relativity.
+                3. Schrödinger's equation.
+                4. Coulomb's law.
+                5. Heisenberg's uncertainty principle.
+                6. Maxwell's equations.
+                7. Stefan-Boltzmann law.
+                """);
 
-                out.println("You have selected: " + option + " for " + userOption1);
+        int equationChoice = getValidatedInput(7);
 
-                break;
-            case 2:
-
-                out.println("You have selected: " + option + " for " + userOption2);
-                out.println("""
-                        1. Newton's laws of motion.
-                        2. Einstein's theory of relativity.
-                        3. Schrödinger's equation.
-                        4. Coulomb's law.
-                        5. Heisenberg's uncertainty principle.
-                        6. Maxwell's equations.
-                        7. Stefan-Boltzmann law.
-                        """);
-                break;
-
-            case 3:
-
-                out.println("You have selected: " + option + " for " + userOption3);
-                out.println("""
-                        1. Planck's constant.
-                        2. Boltzmann's constant.
-                        3. Avogadro's number.
-                        4. Speed of light.
-                        5. Gravitational constant.
-                        6. Elementary charge.
-                        7. Reduced Planck constant.
-                        8. Back to Main Menu.
-                        """);
-
-                do {
-                    out.print("Please enter your choice: ");
-                    try {
-                        constantChoice = userInput.nextInt();  // if this throws, catch handles it
-                        if (constantChoice < 1 || constantChoice > 8) {
-                            out.println("Invalid option. Please select a number between 1 and 8.");
-                        }
-                    } catch (InputMismatchException e) {
-                        out.println("Invalid input. Please enter a number.");
-                        userInput.next(); // clear the bad token — don't comment this out!
-                    }
-                } while (constantChoice < 1 || constantChoice > 8);
-
-
-                switch (constantChoice) {
-                    case 1:
-
-                        out.println("You have selected: " + constantChoice + " for Planck's constant.");
-
-                        out.println("Planck's constant is: " + 6.626070040813e-34 + " J s");
-
-                        break;
-                    case 2:
-
-                        out.println("You have selected: " + constantChoice + " for Boltzmann's constant.");
-                        out.println("Boltzmann's constant is: " + 1.38064852e-23 + " J K^-1");
-
-                        break;
-                    case 3:
-
-                        out.println("You have selected: " + constantChoice + " for Avogadro's number.");
-                        out.println("Avogadro's number is: " + 6.022140857e23 + " mol^-1");
-
-                        break;
-                    case 4:
-
-                        out.println("You have selected: " + constantChoice + " for Speed of light.");
-                        out.println("Speed of light is: " + 299792458 + " m/s");
-
-                        break;
-                    case 5:
-
-                        out.println("You have selected: " + constantChoice + " for Gravitational constant.");
-                        out.println("Gravitational constant is: " + 6.67430e-11 + " m^3 kg^-1 s^-2");
-
-                        break;
-                    case 6:
-
-                        out.println("You have selected: " + constantChoice + " for Elementary charge.");
-                        out.println("Elementary charge is: " + 1.602176634e-19 + " C");
-
-                        break;
-                    case 7:
-
-                        out.println("You have selected: " + constantChoice + " for Reduced Planck constant.");
-                        out.println("Reduced Planck constant is: " + 1.054571817e-34 + " J s");
-                        break;
-
-
-                    case 8:
-
-                        out.println("You have selected: " + constantChoice + " for " + userOptionBackToMainMenu);
-                        out.println("\nBack to Main Menu");
-                        break;
-                }
-
-                    if (constantChoice != 8) {
-                        out.println("\nPress Enter to return to the main menu...");
-                        userInput.nextLine(); // consume leftover newline from nextInt
-                        userInput.nextLine(); // wait for user to press Enter
-                    }
-
-                    break; // ends case 3
-
-            case 4:
-
-                out.println("You have selected: " + option + " for " + userOption4);
-
-                break;
-
-
-            case 5:
-
-                userInput.close();
-                out.println("You have selected: " + option + " to " + userOptionToExit);
-                out.println("Goodbye!");
-
-                break;
-
+        switch (equationChoice) {
+            case 1 -> showNewtonsLaws();
+            case 2 -> showEinsteinRelativity();
+            case 3 -> showSchrodingerEquation();
+            case 4 -> showCoulombsLaw();
+            case 5 -> showHeisenbergPrinciple();
+            case 6 -> showMaxwellsEquations();
+            case 7 -> showStefanBoltzmann();
         }
-        }while (option != 5);
+
+        pressEnterToContinue();
+    }
+
+    static void showNewtonsLaws() {
+        out.println("\nYou have selected: Newton's laws of motion.\n");
+        out.println("""
+                            ***Newton's First Law of motion: The law of inertia***
+           
+                a) A body in motion will stay in its state of motion unless
+                   acted upon by an equal or unbalanced force.
+                b) A body at rest will stay at rest unless acted upon by an equal or unbalanced force.
+           
+                            ***Newton's Second Law of motion: The law of acceleration***
+           
+                a) The acceleration of an object is directly proportional to the net force acting on
+                   it and inversely proportional to its mass.
+                b) Formula: F = ma
+           
+                            ***Newton's Third Law of motion: The law of action and reaction***
+           
+                a) For every action, there is an equal and opposite reaction.
+                b) If object A exerts a force on object B, object B simultaneously exerts an equal
+                   and opposite force on object A.
+                """);
+    }
+
+    static void showEinsteinRelativity() {
+        out.println("\nYou have selected: Einstein's theory of relativity.");
+        out.println("""
+                            ***Einstein's Special Theory of Relativity***
+           
+                a) The laws of physics are the same for all observers in uniform motion.
+                b) The speed of light in a vacuum is the same for all observers.
+                c) Famous formula: E = mc²
+                   Where E is energy, m is mass, and c is the speed of light.
+                """);
+    }
+
+    static void showSchrodingerEquation() {
+        out.println("\nYou have selected: Schrödinger's equation.");
+        out.println("""
+                            ***Schrödinger's Equation***
+           
+                a) Describes how the quantum state of a physical system changes over time.
+                b) It is a key equation in quantum mechanics.
+                c) Time-dependent form: iℏ(∂ψ/∂t) = Ĥψ
+                   Where ψ is the wave function and Ĥ is the Hamiltonian operator.
+                """);
+    }
+
+    static void showCoulombsLaw() {
+        out.println("\nYou have selected: Coulomb's law.");
+        out.println("""
+                            ***Coulomb's Law***
+           
+                a) Describes the force between two charged particles.
+                b) Formula: F = k(q₁q₂)/r²
+                   Where F is force, k is Coulomb's constant, q₁ and q₂ are charges,
+                   and r is the distance between them.
+                """);
+    }
+
+    static void showHeisenbergPrinciple() {
+        out.println("\nYou have selected: Heisenberg's uncertainty principle.");
+        out.println("""
+                            ***Heisenberg's Uncertainty Principle***
+           
+                a) It is impossible to simultaneously know both the exact position
+                   and exact momentum of a particle.
+                b) Formula: Δx · Δp ≥ ℏ/2
+                   Where Δx is the uncertainty in position and Δp is the uncertainty in momentum.
+                """);
+    }
+
+    static void showMaxwellsEquations() {
+        out.println("\nYou have selected: Maxwell's equations.");
+        out.println("""
+                            ***Maxwell's Equations***
+           
+                a) A set of four equations that describe the behavior of electric and magnetic fields.
+                b) They form the foundation of classical electrodynamics and optics.
+                   1. Gauss's law for electricity: ∇·E = ρ/ε₀
+                   2. Gauss's law for magnetism:   ∇·B = 0
+                   3. Faraday's law:               ∇×E = -∂B/∂t
+                   4. Ampère-Maxwell law:           ∇×B = μ₀J + μ₀ε₀(∂E/∂t)
+                """);
+    }
+
+    static void showStefanBoltzmann() {
+        out.println("\nYou have selected: Stefan-Boltzmann law.");
+        out.println("""
+                            ***Stefan-Boltzmann Law***
+           
+                a) Describes the power radiated from a black body in terms of its temperature.
+                b) Formula: P = σT⁴
+                   Where P is power radiated per unit area, σ is the Stefan-Boltzmann constant,
+                   and T is the absolute temperature in Kelvin.
+                """);
+    }
+
+
+    // Case 3 — Physics Constants
+    static void handleConstants() {
+        constantChoice = 0;
+
+        out.println("\nYou have selected: 3 for " + userOption3);
+        out.println("""
+                1. Planck's constant.
+                2. Boltzmann's constant.
+                3. Avogadro's number.
+                4. Speed of light.
+                5. Gravitational constant.
+                6. Elementary charge.
+                7. Reduced Planck constant.
+                8. Back to Main Menu.
+                """);
+
+        constantChoice = getValidatedInput(8);
+
+        switch (constantChoice) {
+            case 1 -> out.println("Planck's constant is: "          + 6.626070040813e-34  + " J s");
+            case 2 -> out.println("Boltzmann's constant is: "       + 1.38064852e-23      + " J K^-1");
+            case 3 -> out.println("Avogadro's number is: "          + 6.022140857e23      + " mol^-1");
+            case 4 -> out.println("Speed of light is: "             + 299792458           + " m/s");
+            case 5 -> out.println("Gravitational constant is: "     + 6.67430e-11         + " m^3 kg^-1 s^-2");
+            case 6 -> out.println("Elementary charge is: "          + 1.602176634e-19     + " C");
+            case 7 -> out.println("Reduced Planck constant is: "    + 1.054571817e-34     + " J s");
+            case 8 -> out.println("Returning to " + userOptionBackToMainMenu + "...");
+        }
+
+        if (constantChoice != 8) {
+            pressEnterToContinue();
+        }
+    }
+
+
+    // Case 4 — General Knowledge
+    static void handleGeneralKnowledge() {
+        out.println("\nYou have selected: 4 for " + userOption4);
+        out.println("(General Knowledge features coming soon!)");
+        pressEnterToContinue();
+    }
+
+    // Case 5 — Exit
+    static void handleExit() {
+        out.println("\nYou have selected: 5 to " + userOptionToExit);
+        out.println("Goodbye!");
     }
 }
